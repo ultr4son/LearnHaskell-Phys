@@ -16,6 +16,11 @@ positionDelta speed position time = position + speed * time
 momentum::Double->Double->Double
 momentum speed mass = speed * mass
 
+--Accessor for a bodie's position
+
+--Is there a better way to do this?
+touching::Body->Body->Bool
+touching b1 b2 = (position b1) == (position b2)
 --Calculate force
 force::Double->Double->Double
 force acceleration mass = mass*acceleration
@@ -28,10 +33,7 @@ attraction g mass1 mass2 distance = (g*mass1*mass2) / distance^2
 
 --How much the first body attracts the second in force units.
 attracts::Double->Body->Body->Double
-attracts _ (StaticPoint _ _) (StaticPoint _ _) = 0
-attracts _ (Point mass1 _ _ position1) (StaticPoint mass2 position2) = 0
-attracts g (StaticPoint mass1 position1) (Point mass2 _ _ position2) = let distance = position1-position2 in attraction g mass1 mass2 distance
-attracts g (Point mass1 _ _ position1) (Point mass2 _ _ position2) = let distance = position1-position2 in attraction g mass1 mass2 distance
+attracts g b1 b2 = let distance = (position b1) - (position b2) in attraction g (mass b1) (mass b2) distance
 
 gNormal = 6.67*10^(-11)
 earthPoint position = (StaticPoint (5.972 * 10^24) position)
