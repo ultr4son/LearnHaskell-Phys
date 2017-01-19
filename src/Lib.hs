@@ -2,7 +2,7 @@ module Phys where
 
 data Body = Point {mass::Double, speed::Double, accel::Double, position::Double} | StaticPoint {mass::Double, position::Double} deriving(Eq, Show)
 
---Haha I just did integrals :)
+--Haha I just did calculus :)
 --Calculate speed if it was accelerated in some time
 speedDelta::Double->Double->Double->Double
 speedDelta speed accel time = speed + accel * time
@@ -16,11 +16,10 @@ positionDelta speed position time = position + speed * time
 momentum::Double->Double->Double
 momentum speed mass = speed * mass
 
---Accessor for a bodie's position
-
 --Is there a better way to do this?
 touching::Body->Body->Bool
 touching b1 b2 = (position b1) == (position b2)
+
 --Calculate force
 force::Double->Double->Double
 force acceleration mass = mass*acceleration
